@@ -1,0 +1,20 @@
+# dependencies
+node_modules/
+
+# secrets / local config
+.env
+.env.*
+!.env.example
+
+# local database files
+data/*.db
+data/*.db-shm
+data/*.db-wal
+data/*.db-journal
+
+# Vercel
+.vercel
+
+# misc
+npm-debug.log*
+.DS_Store
