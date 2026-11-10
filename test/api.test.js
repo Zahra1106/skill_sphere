@@ -4,7 +4,7 @@ import os from 'node:os';
 import path from 'node:path';
 import { after, before, test } from 'node:test';
 import { createLocalJWKSet, exportJWK, generateKeyPair, SignJWT } from 'jose';
-import { createApp } from '../src/app.js';
+import { createApp } from '../src/create-app.js';
 import { createTokenVerifier } from '../src/auth.js';
 import { openDb } from '../src/db.js';
 
