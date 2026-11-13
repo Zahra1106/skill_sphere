@@ -4,6 +4,7 @@
 // * `src/start.js` imports it and calls listen() for local development.
 //
 // The database connection is opened lazily on the first request and reused.
+import express from 'express'; // Vercel looks for this import to detect the entrypoint
 import { createTokenVerifier } from './auth.js';
 import { config } from './config.js';
 import { createApp } from './create-app.js';
@@ -50,4 +51,5 @@ const app = createApp({
 });
 
 export const closeDb = () => db.close();
+export const expressVersion = express.application ? 'express' : 'unknown';
 export default app;
