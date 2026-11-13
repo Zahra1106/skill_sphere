@@ -13,7 +13,12 @@ let dbPromise;
 
 function getDb() {
   dbPromise ??= (async () => {
-    if (process.env.VERCEL && config.databaseUrl.startsWith('file:')) {
+    const serverless =
+      process.env.VERCEL ||
+      process.env.AWS_LAMBDA_FUNCTION_NAME ||
+      process.env.LAMBDA_TASK_ROOT ||
+      process.cwd().startsWith('/var/task');
+    if (serverless && config.databaseUrl.startsWith('file:')) {
       throw new Error(
         'DATABASE_URL is not set. In Vercel -> Settings -> Environment Variables add ' +
           'DATABASE_URL (your Turso libsql:// URL) and DATABASE_AUTH_TOKEN, then redeploy.',

@@ -49,7 +49,14 @@ const toObjects = (rs) =>
  */
 export async function openDb({ url, authToken }) {
   if (url.startsWith('file:') && !url.includes(':memory:')) {
-    fs.mkdirSync(path.dirname(path.resolve(url.slice('file:'.length))), { recursive: true });
+    try {
+      fs.mkdirSync(path.dirname(path.resolve(url.slice('file:'.length))), { recursive: true });
+    } catch (err) {
+      throw new Error(
+        `Cannot create the database folder (${err.code}). This host has a read-only filesystem: ` +
+          'set DATABASE_URL to a Turso libsql:// URL and DATABASE_AUTH_TOKEN.',
+      );
+    }
   }
   const client = createClient({ url, authToken });
   await client.batch(SCHEMA, 'write');
